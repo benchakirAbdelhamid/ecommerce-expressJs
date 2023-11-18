@@ -3,7 +3,7 @@ ecommecre project with express and react and mongoose
 
 # eCommerce
 
-[![eCommerce Logo](https://cfe2-static.s3-us-west-2.amazonaws.com/media/courses/ecommerce/images/ecommerce_coding_for_entrepreneurs.jpg)
+[![eCommerce Logo](https://builtin.com/sites/www.builtin.com/files/styles/og/public/2022-09/ecommerce.png)
 ](https://www.codingforentrepreneurs.com/courses/ecommerce/)
 
 This course will teach you step-by-step to build a eCommerce site from scratch. We'll be using open-source software to create each aspect of a fully functioning eCommerce business.
