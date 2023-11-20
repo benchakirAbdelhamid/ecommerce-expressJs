@@ -1,10 +1,14 @@
 <h1> Ecommecre project with express and react and mongoose</h1> 
+<<<<<<< HEAD
 <h3> this my branch main</h3>
+
+
 
 # eCommerce
 
 [![eCommerce Logo](https://builtin.com/sites/www.builtin.com/files/styles/og/public/2022-09/ecommerce.png)
 ](https://www.codingforentrepreneurs.com/courses/ecommerce/)
+<<<<<<< HEAD
 
 This course will teach you step-by-step to build a eCommerce site from scratch. We'll be using open-source software to create each aspect of a fully functioning eCommerce business.
 
@@ -33,3 +37,5 @@ project hamid benchakir
 [1 Base Template](../../tree/b34bc1692301719be722bb691c1d67df4e98b455/)
 
 [2 - Include Tag](../../tree/12fd4dd9fcd8616b7b71d8c93a60013aa01350d9/)
+=======
+>>>>>>> 5b7d4d0cfa8098ef1e383e8008366fafa189f227
