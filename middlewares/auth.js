@@ -8,11 +8,10 @@ exports.requireSignIn = jwt({
 });
 
 exports.isAuth = (req, res, next) => {
- //is admin all access role = 1
-  if(req.auth.role == 1){
-    return next()
-  }
-
+  //  if(req.auth.role == 1){
+  //   return next()
+  // }
+  
   let user = req.profile && req.auth && req.profile._id == req.auth._id;
 
   if (!user) {
@@ -25,6 +24,11 @@ exports.isAuth = (req, res, next) => {
 
 
 exports.isAdmin = (req , res , next)=>{
+   //is admin all access role = 1
+  //  if(req.auth.role == 1){
+  //   return next()
+  // }
+
   if(req.auth.role == 0){
     return res.status(403).json({
       error : 'Admin Resource , Access Denied'
