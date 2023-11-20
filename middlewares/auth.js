@@ -8,6 +8,11 @@ exports.requireSignIn = jwt({
 });
 
 exports.isAuth = (req, res, next) => {
+ //is admin all access role = 1
+  if(req.auth.role == 1){
+    return next()
+  }
+
   let user = req.profile && req.auth && req.profile._id == req.auth._id;
 
   if (!user) {
