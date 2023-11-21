@@ -7,6 +7,8 @@ exports.requireSignIn = jwt({
   userProperty: "auth",
 });
 
+
+
 exports.isAuth = (req, res, next) => {
   //  if(req.auth.role == 1){
   //   return next()
@@ -16,26 +18,22 @@ exports.isAuth = (req, res, next) => {
 
   if (!user) {
     return res.status(403).json({
-      arror: "access denied",
+      arror: "Access Denied",
     });
   }
   next();
 };
 
-
 exports.isAdmin = (req , res , next)=>{
-   //is admin all access role = 1
-   if(req.auth.role == 1){
-    return next()
-  }
-  
-  if(req.auth.role == 0){
-    return res.status(403).json({
-      error : 'Admin Resource , Access Denied'
-    })
-  }
-
-
-
-  next()
+  //is admin all access role = 1
+//   if(req.auth.role == 1){
+//    return next()
+//  }
+ 
+ if(req.auth.role == 0){
+   return res.status(403).json({
+     error : 'Admin Resource , Access denied'
+   })
+ }
+ next()
 }
