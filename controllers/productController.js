@@ -1,8 +1,14 @@
 const Product = require("../models/product");
-const fs = require('fs')
 
 exports.createProduct = async (req, res) => {
   try {
+    // console.log(req.file.size) // 1mb =1000000 == 10^6
+    // console.log(Math.pow(10 , 6))
+    if(req.file.size > Math.pow(10 , 6)){
+      return res.status(400).json({
+        error : 'Image should be less than 1mb in size'
+      })
+    }
     const product = new Product({
       name: req.body.name,
       description: req.body.description,
@@ -15,10 +21,16 @@ exports.createProduct = async (req, res) => {
       category: req.body.category,
     });
     await product.save();
-
-    res.json({ message: "Product created successfully", product });
+    res
+      .status(201)
+      .json({
+        success: true,
+        message: "Product created successfully",
+        product,
+      });
   } catch (err) {
     res.status(400).json({
+      success: false,
       error: err.message,
     });
   }

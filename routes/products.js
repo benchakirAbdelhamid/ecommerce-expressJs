@@ -8,8 +8,9 @@ const {requireSignIn , isAuth, isAdmin} = require('../middlewares/auth')
 const upload = require('../middlewares/multer')
 
 
-// router.post('/create/:userId',[ requireSignIn , isAuth , isAdmin ] , createProduct)
-// router.param('userId',userById)
 
-router.post('/create',upload.single('filename'), createProduct)
+// router.post('/create' ,upload.single('photo'), createProduct)
+router.post('/create/:userId',[ requireSignIn , isAuth , isAdmin ],upload.single('photo'), createProduct)
+router.param('userId',userById)
+
 module.exports = router
