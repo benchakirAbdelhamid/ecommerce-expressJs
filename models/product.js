@@ -3,37 +3,37 @@ const {ObjectId} = mongoose.Schema
 const productShema = new mongoose.Schema(
   {
     name: {
-      type: Array,
+      type: String,
       required: true,
       maxLength: 350,
       trim: true,
     },
-    // description: {
-    //   type: String,
-    //   require: true,
-    //   maxLength: 2000,
-    // },
-    // price: {
-    //   type: Number,
-    //   require: true,
-    // },
-    // quantity: {
-    //   type: Number,
-    // },
+    description: {
+      type: String,
+      require: true,
+      maxLength: 2000,
+    },
+    price: {
+      type: Number,
+      require: true,
+    },
+    quantity: {
+      type: Number,
+    },
     photo: {
       data: Buffer,
       contentType: String,
     },
-    // category : {
-    //     type : ObjectId , 
-    //     ref : 'Category', // reference - rolationShipe
-    //     require : true
-    // },
-    // shipping : {
-    //     type : Boolean,
-    //     require : false,
-    //     default : false
-    // }
+    category : {
+        type : ObjectId , 
+        ref : 'Category', // reference - rolationShipe
+        require : true
+    },
+    shipping : {
+        type : Boolean,
+        require : false,
+        default : false
+    }
   },
   { timestamps: true }
 );
