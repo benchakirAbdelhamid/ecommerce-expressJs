@@ -1,6 +1,6 @@
 const express = require("express");
 const { userById } = require("../middlewares/user");
-const { createProduct, productById, showProduct } = require("../controllers/productController");
+const { createProduct, productById, showProduct, removeProduct } = require("../controllers/productController");
 const { requireSignIn, isAuth, isAdmin } = require("../middlewares/auth");
 const upload = require("../middlewares/multer");
 
@@ -16,6 +16,8 @@ router.post(
   upload.single("photo"),
   createProduct
 );
+
+router.delete('/:productId/:userId' ,[requireSignIn, isAuth, isAdmin],removeProduct )
 
 
 router.param("userId", userById);

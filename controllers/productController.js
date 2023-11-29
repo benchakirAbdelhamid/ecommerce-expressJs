@@ -32,7 +32,7 @@ exports.createProduct = async (req, res) => {
     const { error } = schema.validate(req.body);
     if (error) {
       return res.status(400).json({
-        error: error.details[0].message
+        error: error.details[0].message,
       });
     }
 
@@ -50,23 +50,37 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-
-exports.productById = (req , res , next , id)=>{
-  Product.findById(id).exec((err , product)=>{
-    if(err || !product){
-      return res.status(404).json({
-        error : "product not found !"
-      })
-    }
+exports.productById = async (req, res, next, id) => {
+  try {
+    const product = await Product.findById(id);
+    // res.json(product)
     req.product = product;
-    next()
-  })
-}
+    next();
+  } catch (error) {
+    return res.status(500).json({ error: "Product not found!" });
+  }
+};
 
-
-exports.showProduct = (req ,res)=>{
-  req.product.photo = undefined
+exports.showProduct = (req, res) => {
+  req.product.photo = undefined;
   res.json({
-    product
-  })
-}
+    product: req.product,
+  });
+};
+
+exports.removeProduct = async (req, res) => {
+  try {
+    let product = req.product;
+    await product.deleteOne();
+    return res.status(200).json({
+      message: "Product deleted successfully",
+      // product
+    });
+    // // no content
+    // return res.status(204).json({});
+  } catch (error) {
+    return res.status(404).json({
+      error: "product not found !",
+    });
+  }
+};
