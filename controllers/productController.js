@@ -10,6 +10,7 @@ exports.createProduct = async (req, res) => {
         error: "Image should be less than 1mb in size",
       });
     }
+    // const product = new Product(req.body)
     const product = new Product({
       name: req.body.name,
       description: req.body.description,
@@ -84,3 +85,105 @@ exports.removeProduct = async (req, res) => {
     });
   }
 };
+
+exports.updateProduct = async (req, res)=>{
+  // ou use package lodash because update document
+  
+  try {
+  const { productId, userId } = req.params;
+  if (req.file.size > Math.pow(10, 6)) {
+    return res.status(400).json({
+      error: "Image should be less than 1mb in size",
+    });
+  }
+  const updatedProduct = {
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    quantity: req.body.quantity,
+    photo : {
+      data : req.file.buffer,
+      contentType : req.file.mimetype
+    },
+    category: req.body.category
+  }
+
+      // validator joi
+    const schema = Joi.object({
+      name: Joi.string().required(),
+      price: Joi.required(),
+      description: Joi.required(),
+      quantity: Joi.number().required(),
+      category: Joi.required(),
+    });
+       const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        error: error.details[0].message,
+      });
+    }
+
+  const product = await Product.findByIdAndUpdate(
+    productId,
+    {$set : updatedProduct}, // ta3tiha object kolo bi updated
+    // {$set : req.body}, // aw had tari9a object kolo
+    // {new : false} // return data befor updated
+    {new : true} // return new data after updated
+  )
+  if (!product) {
+    return res.status(404).json({ error: 'Product not found' });
+  }
+  res.json({ message: 'Product updated successfully', product });
+} catch (error) {
+  res.status(500).json({ message : 'Error updating product:', error });
+}
+
+
+
+
+  // try {
+  //   if (req.file.size > Math.pow(10, 6)) {
+  //     return res.status(400).json({
+  //       error: "Image should be less than 1mb in size",
+  //     });
+  //   }
+  //   // const product = new Product({
+  //   //   name: req.body.name,
+  //   //   description: req.body.description,
+  //   //   price: req.body.price,
+  //   //   quantity: req.body.quantity,
+  //   //   photo: {
+  //   //     data: req.file.buffer,
+  //   //     contentType: req.file.mimetype,
+  //   //   },
+  //   //   category: req.body.category,
+  //   // });
+  //   let product = req.product // dija kayn gi req
+  //   // validator joi
+  //   const schema = Joi.object({
+  //     name: Joi.string().required(),
+  //     price: Joi.required(),
+  //     description: Joi.required(),
+  //     quantity: Joi.number().required(),
+  //     category: Joi.required(),
+  //   });
+  //   const { error } = schema.validate(req.body);
+  //   if (error) {
+  //     return res.status(400).json({
+  //       error: error.details[0].message,
+  //     });
+  //   }
+
+  //   await product.save();
+  //   res.status(201).json({
+  //     success: true,
+  //     message: "Product created successfully",
+  //     product,
+  //   });
+  // } catch (err) {
+  //   res.status(400).json({
+  //     success: false,
+  //     error: err.message,
+  //   });
+  // }
+}
