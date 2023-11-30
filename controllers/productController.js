@@ -141,49 +141,4 @@ exports.updateProduct = async (req, res)=>{
 
 
 
-  // try {
-  //   if (req.file.size > Math.pow(10, 6)) {
-  //     return res.status(400).json({
-  //       error: "Image should be less than 1mb in size",
-  //     });
-  //   }
-  //   // const product = new Product({
-  //   //   name: req.body.name,
-  //   //   description: req.body.description,
-  //   //   price: req.body.price,
-  //   //   quantity: req.body.quantity,
-  //   //   photo: {
-  //   //     data: req.file.buffer,
-  //   //     contentType: req.file.mimetype,
-  //   //   },
-  //   //   category: req.body.category,
-  //   // });
-  //   let product = req.product // dija kayn gi req
-  //   // validator joi
-  //   const schema = Joi.object({
-  //     name: Joi.string().required(),
-  //     price: Joi.required(),
-  //     description: Joi.required(),
-  //     quantity: Joi.number().required(),
-  //     category: Joi.required(),
-  //   });
-  //   const { error } = schema.validate(req.body);
-  //   if (error) {
-  //     return res.status(400).json({
-  //       error: error.details[0].message,
-  //     });
-  //   }
-
-  //   await product.save();
-  //   res.status(201).json({
-  //     success: true,
-  //     message: "Product created successfully",
-  //     product,
-  //   });
-  // } catch (err) {
-  //   res.status(400).json({
-  //     success: false,
-  //     error: err.message,
-  //   });
-  // }
 }
