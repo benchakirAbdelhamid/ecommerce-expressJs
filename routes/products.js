@@ -1,16 +1,20 @@
 const express = require("express");
 const { userById } = require("../middlewares/user");
 const {
+  allProducts,
   createProduct,
   productById,
   showProduct,
   removeProduct,
   updateProduct,
+  
 } = require("../controllers/productController");
 const { requireSignIn, isAuth, isAdmin } = require("../middlewares/auth");
 const upload = require("../middlewares/multer");
 
 const router = express.Router();
+
+router.get('/' , allProducts)
 
 // => Get a product
 router.get("/:productId", showProduct);
