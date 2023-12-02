@@ -7,14 +7,18 @@ const {
   showProduct,
   removeProduct,
   updateProduct,
-  
+  relatedProducts
 } = require("../controllers/productController");
 const { requireSignIn, isAuth, isAdmin } = require("../middlewares/auth");
 const upload = require("../middlewares/multer");
 
 const router = express.Router();
 
+// => Get all products
 router.get('/' , allProducts)
+
+// => Get related
+router.get('/related/:productId' , relatedProducts)
 
 // => Get a product
 router.get("/:productId", showProduct);

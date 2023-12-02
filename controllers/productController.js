@@ -152,15 +152,39 @@ exports.allProducts = async (req, res) => {
       .select("-photo")
       .populate("category")
       .sort([[sortBy, order]])
-      .limit( parseInt(limit));
+      .limit(parseInt(limit));
 
     if (products.length === 0) {
       return res.status(404).json({ message: "No products found" });
     }
 
     res.json({ products, lengthProducts: products.length });
-  } 
-  catch (error) {
+  } catch (error) {
     res.status(500).json({ message: "Error fetching products:", error });
   }
+};
+
+exports.relatedProducts = async (req, res) => {
+  try {
+    // test value req.product
+    const  producttest=req.product
+    let limit = req.query.limit ? req.query.limit : 6;
+
+    const products = await Product.find({
+      category: req.product.category,
+      _id: { $ne: req.product._id },
+    })
+    .select("-photo")
+      .limit(parseInt(limit))
+      .populate("category", "_id name");
+  
+      if (products.length === 0) {
+        return res.status(404).json({ message: "No products found" });
+      }
+  
+      res.json({ products, lengthProducts: products.length ,producttest });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching products:", error });
+  }
+
 };
