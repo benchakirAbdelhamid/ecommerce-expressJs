@@ -143,7 +143,7 @@ exports.allProducts = async (req, res) => {
   try {
     let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
     let order = req.query.order ? req.query.order : "asc";
-    let limit = req.query.limit ? req.query.limit : 6;
+    let limit = req.query.limit ? req.query.limit : 100;
     // res.json({
     //   sortBy , order , x :parseInt(limit) , query :req.query
     // })
@@ -188,3 +188,42 @@ exports.relatedProducts = async (req, res) => {
   }
 
 };
+
+exports.searchProduct = async (req , res)=>{
+  try {
+    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+    let order = req.query.order ? req.query.order : "asc";
+    let limit = req.query.limit ? req.query.limit : 100;
+    let skip = parseInt(req.body.skip)
+    let findArgs = {};
+
+    for(let key in req.body.filters){
+      if(req.body.filters[key].length>0){
+        if(key === 'price'){
+          findArgs[key] = {
+            $gte : req.body.filters[key][0],
+            $lte : req.body.filters[key][1],
+          }
+        }else{
+          findArgs[key] = req.body.filters[key]
+        }
+      }
+    }
+
+    const products = await Product.find(findArgs)
+      .select("-photo")
+      .populate("category")
+      .sort([[sortBy, order]])
+      .limit(parseInt(limit))
+      .skip(skip)
+
+    if (products.length === 0) {
+      return res.status(404).json({ message: "No products found" });
+    }
+
+    res.json({ products, lengthProducts: products.length  , skip :req.body.skip});
+
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching products:", error });
+  }
+}

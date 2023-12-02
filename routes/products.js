@@ -7,7 +7,8 @@ const {
   showProduct,
   removeProduct,
   updateProduct,
-  relatedProducts
+  relatedProducts,
+  searchProduct
 } = require("../controllers/productController");
 const { requireSignIn, isAuth, isAdmin } = require("../middlewares/auth");
 const upload = require("../middlewares/multer");
@@ -22,6 +23,9 @@ router.get('/related/:productId' , relatedProducts)
 
 // => Get a product
 router.get("/:productId", showProduct);
+
+// search product
+router.post('/search',searchProduct)
 
 // => Create a product
 router.post(
