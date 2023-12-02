@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 const mongoose = require("mongoose");
 // cookies stocke token
 const cookieParser = require('cookie-parser')
@@ -32,6 +33,8 @@ startServer();
 
 //Middlewares ==>json body
 app.use(express.json())
+// Middleware cors == link between back and front
+app.use(cors())
 // Middlewares cookies
 app.use(cookieParser())
 // Middleware validator in db
@@ -39,7 +42,7 @@ app.use(expressValidator())
 
 // Routes Middleware
 app.use("/api", authRoutes);
-app.use("/api", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/category", categoryRouters);
 app.use("/api/product", productRouters);
 
