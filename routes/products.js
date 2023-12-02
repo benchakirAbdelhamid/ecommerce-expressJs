@@ -8,7 +8,8 @@ const {
   removeProduct,
   updateProduct,
   relatedProducts,
-  searchProduct
+  searchProduct,
+  photoProduct
 } = require("../controllers/productController");
 const { requireSignIn, isAuth, isAdmin } = require("../middlewares/auth");
 const upload = require("../middlewares/multer");
@@ -26,6 +27,9 @@ router.get("/:productId", showProduct);
 
 // search product
 router.post('/search',searchProduct)
+
+// photo
+router.get('/photo/:productId',photoProduct)
 
 // => Create a product
 router.post(

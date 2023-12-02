@@ -227,3 +227,14 @@ exports.searchProduct = async (req , res)=>{
     res.status(500).json({ message: "Error fetching products:", error });
   }
 }
+
+exports.photoProduct = async(req, res)=>{
+  // ==>get photo
+  // http://localhost:8004/api/product/photo/656b041fcb9991fe85358cf9
+  // http://localhost:8004/api/product/photo/:idproduct
+  const {data , contentType} = req.product.photo
+  if(data){
+    res.set('Content-Type',contentType)
+    return res.send(data)
+  }
+}
