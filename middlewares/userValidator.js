@@ -10,7 +10,8 @@ exports.userSignUpValidator = (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(400).json(errors);
+    // return res.status(400).json(errors);
+    return res.status(400).json({error : errors[0].msg});
   }
   next();
 };

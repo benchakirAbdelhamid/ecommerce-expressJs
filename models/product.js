@@ -16,9 +16,11 @@ const productShema = new mongoose.Schema(
     price: {
       type: Number,
       require: true,
+      default : 0
     },
     quantity: {
       type: Number,
+      default : 0
     },
     photo: {
       data: Buffer,

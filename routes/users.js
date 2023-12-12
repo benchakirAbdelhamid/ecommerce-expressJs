@@ -12,4 +12,14 @@ router.put('/profile/:userId' ,requireSignIn,  isAuth ,isAdmin, updateOneUser)
 
 router.param('userId',userById )
 
+
+// router.get('/',async (req, res)=>{
+//     return res.json({
+//       name:"hamid",
+//       benchakir:"benchakir",
+//       content : 'ococococooc'
+//     })
+// })
+
+
 module.exports = router

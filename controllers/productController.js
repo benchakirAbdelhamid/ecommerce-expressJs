@@ -21,6 +21,7 @@ exports.createProduct = async (req, res) => {
         contentType: req.file.mimetype,
       },
       category: req.body.category,
+      shipping : req.body.shipping
     });
     // validator joi
     const schema = Joi.object({
@@ -29,6 +30,7 @@ exports.createProduct = async (req, res) => {
       description: Joi.required(),
       quantity: Joi.number().required(),
       category: Joi.required(),
+      shipping: Joi.required(),
     });
     const { error } = schema.validate(req.body);
     if (error) {

@@ -11,12 +11,16 @@ exports.signup = async (req, res) => {
   try {
     const user = new User(req.body);
     await user.save();
+    
+    user.hashed_password = undefined
+    user.salt = undefined
+
     res.json({
       message: "User Successfully Registered",
       user: user,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     if (err.name === "ValidationError") {
       return res.status(400).json({ error: err.message });
     } else {
@@ -56,6 +60,8 @@ exports.signin = async (req, res) => {
 
         const token = jwt.sign({ _id: user._id , role : user.role }, process.env.JWT_SECRET);
         res.cookie("token", token, { expire: new Date() + 200000 });
+        user.hashed_password = undefined
+        user.salt = undefined
         return res.json({
           token,
           user,

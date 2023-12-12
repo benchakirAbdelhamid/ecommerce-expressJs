@@ -5,7 +5,8 @@ const categoryShema = new mongoose.Schema({
     type : String,
     required : true,
     maxLength : 32,
-    trim : true
+    trim : true,
+    unique : true
  }
 } , {timestamps : true})
  module.exports = mongoose.model('Category' , categoryShema)
