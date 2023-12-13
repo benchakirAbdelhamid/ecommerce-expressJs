@@ -30,7 +30,7 @@ exports.createProduct = async (req, res) => {
       description: Joi.required(),
       quantity: Joi.number().required(),
       category: Joi.required(),
-      shipping: Joi.required(),
+      shipping: Joi.boolean() ,
     });
     const { error } = schema.validate(req.body);
     if (error) {
@@ -42,6 +42,8 @@ exports.createProduct = async (req, res) => {
     await product.save();
     res.status(201).json({
       success: true,
+      body : req.body,
+      datafile: req.file,
       message: "Product created successfully",
       product,
     });

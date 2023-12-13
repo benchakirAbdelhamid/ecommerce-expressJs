@@ -2,11 +2,11 @@ const Category = require("../models/category");
 
 exports.allCategories = async (req, res)=>{
     try {
-        const category = await Category.find();
-        if (!category) {
+        const categories = await Category.find();
+        if (!categories) {
           return res.status(404).json({ error: "category not found" });
         }
-       res.json({category})
+       res.json({categories})
       } catch (error) {
         res.status(404).json({ error: error.message });
       }
