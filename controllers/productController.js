@@ -197,9 +197,11 @@ exports.searchProduct = async (req , res)=>{
   try {
     let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
     let order = req.query.order ? req.query.order : "asc";
-    let limit = req.query.limit ? req.query.limit : 100;
+    let limit = req.body.limit ? parseInt(req.body.limit) : 100;
     let skip = parseInt(req.body.skip)
     let findArgs = {};
+
+    // console.log('==>',req.body.filters)
 
     for(let key in req.body.filters){
       if(req.body.filters[key].length>0){
