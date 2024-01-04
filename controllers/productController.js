@@ -152,7 +152,18 @@ exports.allProducts = async (req, res) => {
     //   sortBy , order , x :parseInt(limit) , query :req.query
     // })
 
-    const products = await Product.find()
+    // // if search product
+    let query = {}
+    let {search , category} = req.query
+
+    if(search){
+      query.name = {$regex : search , $options : 'i'}
+    }
+    if(category){
+      query.category = category
+    }
+
+    const products = await Product.find(query)
       .select("-photo")
       .populate("category")
       .sort([[sortBy, order]])
