@@ -57,7 +57,7 @@ exports.createProduct = async (req, res) => {
 
 exports.productById = async (req, res, next, id) => {
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate("category")
     // res.json(product)
     req.product = product;
     next();
@@ -157,11 +157,14 @@ exports.allProducts = async (req, res) => {
     let {search , category} = req.query
 
     if(search){
+      // regex and option => find name with uppercase and smallcase letter
       query.name = {$regex : search , $options : 'i'}
     }
     if(category){
       query.category = category
     }
+
+    // console.log('======> ',query)
 
     const products = await Product.find(query)
       .select("-photo")
@@ -183,7 +186,7 @@ exports.relatedProducts = async (req, res) => {
   try {
     // test value req.product
     const  producttest=req.product
-    let limit = req.query.limit ? req.query.limit : 6;
+    let limit = req.query.limit ? req.query.limit : 4;
 
     const products = await Product.find({
       category: req.product.category,

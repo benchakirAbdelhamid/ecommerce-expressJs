@@ -19,11 +19,11 @@ const router = express.Router();
 // => Get all products
 router.get('/' , allProducts)
 
-// => Get related
-router.get('/related/:productId' , relatedProducts)
-
 // => Get a product
 router.get("/:productId", showProduct);
+
+// => Get related
+router.get('/related/:productId' , relatedProducts)
 
 // search product
 router.post('/search',searchProduct)
