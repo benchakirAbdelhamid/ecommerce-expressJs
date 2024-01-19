@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const categoryRouters = require('./routes/categories')
 const productRouters = require('./routes/products')
+const orderRouters = require('./routes/orders')
 
 //Config App
 const app = express();
@@ -45,6 +46,7 @@ app.use("/api", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/category", categoryRouters);
 app.use("/api/product", productRouters);
+app.use("/api/order", orderRouters);
 
 
 // const port = process.env.PORT || 3000;
